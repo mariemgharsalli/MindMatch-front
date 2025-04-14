@@ -1,0 +1,64 @@
+<div class="competition-container">
+    <!-- Header -->
+    <div class="competition-header">
+      <h1>
+        <span class="icon">🏆</span>
+        <span>Gérer Session</span>
+      </h1>
+      
+      <div class="header-actions">
+        <div class="search-box">
+          <input type="text" placeholder="Chercher sessions...">
+          <span class="search-icon">🔍</span>
+        </div>
+        <button class="add-button" (click)="openAddDialog()">
+          <span class="icon">+</span>
+          <span>Ajouter Session</span>
+        </button>
+      </div>
+    </div>
+  
+    <!-- Competition Table -->
+    <div class="competition-table">
+      <!-- Table Header -->
+      <div class="table-header">
+        <div class="col-name">Nom</div>
+        <div class="col-deadline">Deadline</div>
+        <div class="col-score">Score</div>
+        <div class="col-participants">Participants</div>
+        <div class="col-image">Course Image</div>
+        <div class="col-actions">Actions</div>
+      </div>
+  
+      <!-- Table Body -->
+      <div class="table-body">
+        <div class="table-row" *ngFor="let comp of competitions">
+          <div class="col-name">
+            <div class="competition-name"><strong>{{comp.name}}</strong></div>
+            <div class="competition-desc">{{comp.description}}</div>
+          </div>
+          
+          <div class="col-deadline">{{comp.deadline}}</div>
+          
+          <div class="col-score">
+            <span class="status-badge" [class.available]="comp.hasScore">
+              {{comp.hasScore ? '✅ Available' : '❌ Unavailable'}}
+            </span>
+          </div>
+          
+          <div class="col-participants">{{comp.participants}}</div>
+          
+          <div class="col-image">
+            <span class="status-badge available">
+              ✅ Available
+            </span>
+          </div>
+          
+          <div class="col-actions">
+            <button class="action-btn edit" title="Edit">✏️</button>
+            <button class="action-btn delete" title="Delete">🗑️</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

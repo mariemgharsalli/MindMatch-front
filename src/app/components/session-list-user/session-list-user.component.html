@@ -1,0 +1,89 @@
+<div class="sessions-container">
+    <!-- Barre de recherche -->
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Rechercher des sessions..." class="search-input">
+      <i class="fas fa-search search-icon"></i>
+    </div>
+  
+    <!-- Liste des sessions -->
+    <div class="sessions-grid">
+      <div *ngFor="let session of filteredSessions" 
+           class="session-card"
+           [class.selected]="selectedSession?.id === session.id"
+           (click)="selectSession(session)">
+        
+        <div class="card-image">
+          <img [src]="session.imageUrl" [alt]="session.title">
+          <div class="image-overlay"></div>
+        </div>
+  
+        <div class="card-content">
+          <div class="card-header">
+            <h3>{{ session.title }}</h3>
+            <span class="badge" [ngClass]="{
+              'beginner': session.level === 'BEGINNER',
+              'intermediate': session.level === 'INTERMEDIATE',
+              'advanced': session.level === 'ADVANCED'
+            }">{{ session.level  }}</span>
+          </div>
+  
+          <div class="card-body">
+            <p>{{ session.description }}</p>
+            <div class="meta-info">
+              <span><i class="far fa-calendar-alt"></i> {{ session.date | date:'mediumDate' }}</span>
+              <span><i class="fas fa-map-marker-alt"></i> {{ session.location }}</span>
+            </div>
+          </div>
+  
+          <div class="card-footer">
+            <span class="price">{{ session.price > 0 ? (session.price | currency:'EUR') : 'Gratuit' }}</span>
+            <button class="btn-details">Voir détails</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Détails de la session -->
+    <div *ngIf="selectedSession" class="session-details-overlay" (click)="selectedSession = null">
+      <div class="session-details" (click)="$event.stopPropagation()">
+        <div class="details-header">
+          <div class="details-image">
+            <img [src]="selectedSession.imageUrl" [alt]="selectedSession.title">
+          </div>
+          <div class="details-title">
+            <h2>{{ selectedSession.title }}</h2>
+            <button (click)="selectedSession = null" class="close-btn">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+  
+        <div class="details-content">
+          <div class="details-main">
+            <p>{{ selectedSession.fullDescription }}</p>
+            
+            <div class="details-section">
+              <h3>Informations pratiques</h3>
+              <div class="info-grid">
+                <div><i class="far fa-calendar-alt"></i> <strong>Date:</strong> {{ selectedSession.date | date:'fullDate' }}</div>
+                <div><i class="fas fa-map-marker-alt"></i> <strong>Lieu:</strong> {{ selectedSession.location }}</div>
+                <div><i class="fas fa-coins"></i> <strong>Prix:</strong> {{ selectedSession.price | currency:'EUR' }}</div>
+                <div><i class="fas fa-signal"></i> <strong>Niveau:</strong> {{ selectedSession.level  }}</div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="details-actions">
+            <button class="btn-register">S'inscrire</button>
+            <button class="btn-share">Partager</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Aucun résultat -->
+    <div *ngIf="filteredSessions.length === 0" class="no-results">
+      <i class="far fa-folder-open"></i>
+      <p>Aucune session ne correspond à votre recherche</p>
+    </div>
+  </div>
