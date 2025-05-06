@@ -1,0 +1,106 @@
+.popup-container {
+  padding: 32px 32px 24px 32px;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 16px 48px rgba(6, 12, 34, 0.18);
+  color: #23243a;
+}
+
+.popup-container h2 {
+  color: #232323;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.sponsor-card {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  padding: 18px 16px;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  background: #f8f9fa;
+  box-shadow: 0 2px 8px rgba(44, 73, 100, 0.06);
+}
+
+.sponsor-image-container {
+  width: 70px;
+  height: 70px;
+  margin-right: 18px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(44, 73, 100, 0.08);
+}
+
+.sponsor-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sponsor-info {
+  flex: 1;
+}
+
+.sponsor-info h3 {
+  color: #23243a;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+}
+
+.sponsor-info p {
+  color: #555;
+  font-size: 1rem;
+  margin: 0 0 4px 0;
+}
+
+.sponsor-info strong {
+  color: #232323;
+  font-weight: 700;
+}
+
+.no-sponsors {
+  text-align: center;
+  color: #232323;
+  font-size: 1.1rem;
+  margin: 24px 0;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.popup-actions button {
+  background: linear-gradient(90deg, #232323 0%, #444 100%);
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 32px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 12px rgba(44, 73, 100, 0.10);
+}
+.popup-actions button:hover {
+  background: #fff;
+  color: #232323;
+  border: 2px solid #232323;
+}
+
+.icon-sponsor {
+  color: #232323;
+  margin-right: 15px;
+  font-size: 44px;
+  vertical-align: middle;
+}

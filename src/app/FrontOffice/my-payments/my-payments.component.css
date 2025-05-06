@@ -1,0 +1,28 @@
+.graphique-title {
+    font-family: 'Nunito', sans-serif; /* Police élégante et moderne */
+    font-size: 2rem; /* Taille du texte */
+    font-weight: 700; /* Poids de la police pour plus de visibilité */
+    color: #f06292; /* Rose doux et féminin */
+    text-align: center; /* Centrer le texte */
+    margin-bottom: 1rem; /* Espace en dessous */
+    text-transform: uppercase; /* Mettre le texte en majuscules pour une allure professionnelle */
+    letter-spacing: 2px; /* Espacement des lettres pour une touche moderne */
+    background: linear-gradient(to right, #f8bbd0, #f06292); /* Dégradé de rose clair à un rose plus foncé */
+
+    color: transparent; /* Assurer que la couleur du texte soit transparente */
+    padding: 0.5rem 0; /* Ajouter de l'espace autour du texte */
+    border-radius: 5px;
+  }
+  
+  /* Ajouter une ombre pour un effet doux */
+  .graphique-title {
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Ajout d'une animation douce au survol */
+  .graphique-title:hover {
+    color: #e91e63; /* Rose plus foncé lors du survol */
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  

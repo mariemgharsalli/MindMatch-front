@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  constructor(private router: Router){}
 
   private jwtHelper = new JwtHelperService();
 
@@ -33,9 +35,8 @@ export class AuthService {
   }
 
   logout(): void {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('token');
-    }
+    localStorage.removeItem('token'); // ou adapte getToken() si c'est bien 'auth_token'
+    this.router.navigate(['/login']);
   }
 
   getUserId(): number | null {
@@ -61,4 +62,9 @@ export class AuthService {
     if (!token) return null;
     return this.jwtHelper.decodeToken(token);
   }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
 }

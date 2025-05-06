@@ -22,7 +22,7 @@
         <div class="popup-right">
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <h2 class="form-title">Connexion</h2>
-                
+
                 <!-- Affichage des erreurs globales -->
                 <div *ngIf="errorMessage" class="alert alert-danger">
                     {{ errorMessage }}
@@ -35,7 +35,8 @@
                         [ngClass]="{'is-invalid': isFieldInvalid('email')}">
                     <div *ngIf="isFieldInvalid('email')" class="invalid-feedback">
                         <span *ngIf="loginForm.get('email')?.errors?.['required']">L'email est obligatoire.</span>
-                        <span *ngIf="loginForm.get('email')?.errors?.['email']">Veuillez entrer une adresse email valide.</span>
+                        <span *ngIf="loginForm.get('email')?.errors?.['email']">Veuillez entrer une adresse email
+                            valide.</span>
                     </div>
                 </div>
 
@@ -43,15 +44,17 @@
                 <div class="form-group password-container">
                     <label for="password">Mot de passe</label>
                     <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
-                        placeholder="Entrez votre mot de passe"
-                        [ngClass]="{'is-invalid': isFieldInvalid('password')}">
+                        placeholder="Entrez votre mot de passe" [ngClass]="{'is-invalid': isFieldInvalid('password')}">
                     <button type="button" (click)="togglePasswordVisibility()" class="toggle-password">
                         {{ showPassword ? '🙈' : '👁️' }}
                     </button>
                     <div *ngIf="isFieldInvalid('password')" class="invalid-feedback">
-                        <span *ngIf="loginForm.get('password')?.errors?.['required']">Le mot de passe est obligatoire.</span>
-                        <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Minimum 6 caractères requis.</span>
-                        <span *ngIf="loginForm.get('password')?.errors?.['pattern']">Doit contenir au moins une lettre et un chiffre.</span>
+                        <span *ngIf="loginForm.get('password')?.errors?.['required']">Le mot de passe est
+                            obligatoire.</span>
+                        <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Minimum 6 caractères
+                            requis.</span>
+                        <span *ngIf="loginForm.get('password')?.errors?.['pattern']">Doit contenir au moins une lettre
+                            et un chiffre.</span>
                     </div>
                 </div>
 

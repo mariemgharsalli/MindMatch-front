@@ -1,3 +1,5 @@
+import { ERole } from "./Role.model";
+
 export interface User{
 
     userId? : number | null,
@@ -9,4 +11,8 @@ export interface User{
     phone : string,
     dateOfBirth: Date,
     sexe: string,
+    role?: {
+        roleId?: number;
+        role?: ERole;
+    };
 }

@@ -1,0 +1,28 @@
+<div class="popup-container">
+  <h2><i class="fas fa-handshake icon-sponsor"></i> Sponsor List</h2>
+
+  <ul *ngIf="sponsors && sponsors.length > 0; else noSponsors">
+    <li *ngFor="let sponsor of sponsors" class="sponsor-card">
+      <div class="sponsor-info">
+        <div class="sponsor-image-container">
+          <img 
+            [src]="sponsor.imageUrl" 
+            alt="{{ sponsor.name }} logo"
+            class="sponsor-image">
+        </div>
+        <h3>{{ sponsor.name }}</h3>
+        <p><strong>Company:</strong> {{ sponsor.company }}</p>
+        <p><strong>Email:</strong> {{ sponsor.email }}</p>
+      </div>
+    </li>
+  </ul>
+  
+
+  <ng-template #noSponsors>
+    <p class="no-sponsors">No sponsors to display.</p>
+  </ng-template>
+
+  <div class="popup-actions">
+    <button mat-raised-button color="primary" (click)="close()">Close</button>
+  </div>
+</div>

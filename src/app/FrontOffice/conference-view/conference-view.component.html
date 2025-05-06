@@ -1,0 +1,64 @@
+<!-- ==========================
+     Conference Section
+==============================-->
+<section id="conference" class="section-with-bg">
+  <div class="container">
+    <div class="section-header">
+      <h2><i class="fas fa-calendar-check"></i> Our <span class="highlight">Conferences</span></h2>
+      <p>Discover our upcoming conferences and events</p>
+    </div>
+
+    <div>
+      <div *ngFor="let conference of conferences" class="conference-item row align-items-center">
+        <!-- Left: Conference details -->
+        <div class="col-md-7 col-12">
+          <div class="conference-content">
+            <h3><i class="fas fa-microphone-alt"></i> {{conference.title}}</h3>
+            <div class="conference-details">
+              <p><i class="fas fa-map-marked-alt"></i> <strong>Location:</strong> {{conference.location || 'Not specified'}}</p>
+              <p><i class="far fa-calendar-alt"></i> <strong>Date:</strong> {{conference.date | date:'mediumDate'}}</p>
+              <p><i class="far fa-clock"></i> <strong>Duration:</strong> {{conference.duration}}</p>
+              <p><i class="fas fa-align-left"></i> <strong>Description:</strong> {{conference.description}}</p>
+            </div>
+            <div class="conference-actions mt-3">
+              <button class="icon-btn like" (click)="likeConference(conference.conferenceId)">
+                <i class="fas fa-thumbs-up"></i> <span>{{conference.likes || 0}}</span>
+              </button>
+              <button class="icon-btn dislike ms-2" (click)="dislikeConference(conference.conferenceId)">
+                <i class="fas fa-thumbs-down"></i> <span>{{conference.dislikes || 0}}</span>
+              </button>
+            </div>
+            <div class="text-center mt-4">
+              <button class="btn btn-outline-primary me-2" (click)="viewSponsors(conference)">
+                {{ sponsorsByConference[conference.conferenceId] ? 'Hide sponsors' : 'View sponsors' }}
+              </button>
+              <a href="#" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i> Learn more</a>
+            </div>
+          </div>
+        </div>
+        <!-- Right: Map -->
+        <div class="col-md-5 col-12">
+          <div class="conference-map mb-3" *ngIf="conference.location">
+            <iframe
+              width="100%"
+              height="200"
+              frameborder="0"
+              style="border:0"
+              [src]="getMapUrl(conference.location)"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No conference -->
+    <div class="text-center" *ngIf="conferences.length === 0">
+      <div class="no-conference-message">
+        <i class="fas fa-calendar-times fa-3x mb-3"></i>
+        <h3>No conference available at the moment</h3>
+        <p>Come back later to discover our upcoming conferences.</p>
+      </div>
+    </div>
+  </div>
+</section>

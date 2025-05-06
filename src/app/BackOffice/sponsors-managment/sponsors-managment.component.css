@@ -1,0 +1,192 @@
+.container {
+  max-width: 900px;
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+.form-control {
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+button {
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.list-group-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+}
+
+.list-group-item:hover {
+  background-color: #f1f1f1;
+}
+
+button.btn {
+  border-radius: 20px;
+}
+
+.mb-2 {
+  margin-bottom: 10px;
+}
+
+/* Encadré titre "Gérer nos sponsors" */
+.conference-header-box {
+  background: linear-gradient(135deg, #821414 0%, #371a6c 100%);
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.conference-header-box h5 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.icon-box {
+  font-size: 1.8rem;
+  color: white;
+  margin-right: 15px;
+}
+
+.btn-icon-square {
+  width: 45px;
+  height: 45px;
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+}
+
+.btn-icon-square:hover {
+  background-color: #5a34a1;
+}
+
+.btn-icon-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #371a6c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.btn-icon-circle:hover {
+  background-color: #971552;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.gap-3 {
+  gap: 12px;
+}
+
+/* Nouveau bouton "Ajouter un sponsor" vert */
+.btn-green {
+  background-color: #135f3c; /* Vert bootstrap */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-green:hover {
+  background-color: #135f3c; /* Vert plus foncé */
+}
+
+.btn-green:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5); /* Effet focus vert */
+}
+
+.text-primary {
+  color: #007bff !important;
+}
+
+.form-check-label {
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+hr {
+  margin-top: 40px;
+  border: 1px solid #dcdcdc;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .col-md-8 {
+    max-width: 100%;
+  }
+}
+
+/* Style for content sections */
+.conference-content {
+  border-left: 5px solid #971552;
+  border-radius: 0 10px 10px 0;
+  overflow: hidden;
+}
+
+/* Container styling */
+.container-fluid {
+  background: linear-gradient(to bottom, #f8f9fc, #ffffff);
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+/* Table header styling */
+th {
+  color: black !important;
+  font-weight: bold !important;
+}
+
+/* Icon styling */
+.fas.fa-trash {
+  font-size: 1.2rem;
+  background-color: #371a6c;
+  color: white;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+}
+
+
+

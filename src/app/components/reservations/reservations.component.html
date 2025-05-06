@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="col-md-3 sidebar reserved-sessions">
+        <div class="reserved-sessions p-3 rounded shadow-sm bg-white">
+            <h4 class="mb-3 text-center">Mes réservations</h4>
+
+            <div *ngIf="reservedSessions.length === 0" class="text-muted text-center">
+                <p>Aucune session réservée pour le moment.</p>
+            </div>
+
+            <div *ngFor="let session of reservedSessions" class="d-flex align-items-start mb-3 border-bottom pb-3">
+                <div class="flex-grow-1">
+                    <h6 class="mb-1">{{ session.nom }}</h6>
+                    <small class="text-muted d-block mb-1">{{ session.date | date:'shortDate' }}</small>
+                    <span class="badge bg-success" *ngIf="session.prix > 0">{{ session.prix | currency:'EUR' }}</span>
+                    <span class="badge bg-secondary" *ngIf="session.prix === 0">Gratuit</span>
+                </div>
+                <button (click)="removeReservedSession(session.id ?? 0)" class="btn btn-sm btn-outline-danger ms-2"
+                    title="Supprimer">
+                    ✕
+                </button>
+            </div>
+
+            <div *ngIf="reservedSessions.length > 0" class="mt-4">
+                <p class="fw-bold mb-2">
+                    Total : <span class="text-success">{{ getTotalAmount() | currency:'EUR' }}</span>
+                </p>
+                <button class="btn btn-success w-100" (click)="proceedToPayment()">
+                    💳 Procéder au paiement
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

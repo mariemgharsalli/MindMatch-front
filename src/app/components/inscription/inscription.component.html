@@ -45,6 +45,16 @@
               {{ registerFormTunisie.get('lastName')?.errors?.['required'] ? 'Le prénom est obligatoire.' : 'Minimum 2 caractères' }}
             </div>
           </div>
+
+          <!-- Champ Addresse -->
+          <div class="form-group">
+            <label for="address">Addresse</label>
+            <input type="text" id="address" formControlName="address" placeholder="Entrez votre addresse"
+              (focus)="showHint('Adress')" (blur)="hideHint()" [ngClass]="{'is-invalid': isFieldInvalid('address'), 'address': registerFormTunisie.get('address')?.valid}">
+            <div *ngIf="isFieldInvalid('address')" class="invalid-feedback">
+              {{ registerFormTunisie.get('address')?.errors?.['required'] }}
+            </div>
+          </div> 
   
           <!-- Champ Email -->
           <div class="form-group">
@@ -84,6 +94,16 @@
               Veuillez sélectionner un rôle.
             </div>
           </div>
+
+          <!-- Champ Sexe -->
+          <div class="form-group">
+            <label for="sexe">Sexe</label>
+            <input type="text" id="sexe" formControlName="sexe" placeholder="Entrez votre Sexe (Homme, Femme)"
+              (focus)="showHint('sexe')" (blur)="hideHint()" [ngClass]="{'is-invalid': isFieldInvalid('sexe'), 'sexe': registerFormTunisie.get('sexe')?.valid}">
+            <div *ngIf="isFieldInvalid('sexe')" class="invalid-feedback">
+              {{ registerFormTunisie.get('sexe')?.errors?.['required'] }}
+            </div>
+          </div> 
   
           <!-- Champ Mot de passe -->
           <div class="form-group password-container">

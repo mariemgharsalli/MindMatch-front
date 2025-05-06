@@ -12,18 +12,18 @@ export class ApiRoutingUserService {
 
   constructor(private http: HttpClient) { }
 
-  requestApi(urlPath: string, body: any, params?: HttpParams): Observable<string> {
-    return this.http.post<string>(
+  requestApi(urlPath: string, body: any, params?: HttpParams): Observable<any> {
+    return this.http.post<any>(
       this.apiUrl + urlPath,
       body, 
       {
         params: params,
-        responseType: 'text' as 'json'
+        responseType: 'json'
       }
     );
   }
   requestGetApi(urlPath: string, params?: HttpParams): Observable<any> {
-    return this.http.get(
+    return this.http.get<any>(
       this.apiUrl + urlPath,
       {
         params: params,
