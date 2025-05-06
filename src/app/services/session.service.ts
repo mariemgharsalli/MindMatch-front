@@ -29,8 +29,8 @@ export class SessionService {
       return this.http.post<Session>(`${this.baseUrl}/add`, session);
     }
   
-    updateSession(id: any, session: Session): Observable<any> {
-      return this.http.put(`${this.baseUrl}/updateCompetition/{id}`, session);
+    updateSession(id: number, session: Session): Observable<Session> {
+      return this.http.put<Session>(`${this.baseUrl}/updateSession/${id}`, session);
     }
   
     deleteSession(id: number): Observable<any> {

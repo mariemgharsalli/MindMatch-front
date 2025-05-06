@@ -13,6 +13,7 @@ import { AuthGuard } from './auth.guard';
 import { SubmissionsComponent } from './components/submissions/submissions.component';
 import { ListUtilisateurComponent } from './components/list-utilisateur/list-utilisateur.component';
 import { DocumentComponent } from './components/document/document.component';
+import { SessionStatisticsComponent } from './components/session-statistics/session-statistics.component';
 
 
 const routes: Routes = [
@@ -25,8 +26,7 @@ const routes: Routes = [
   { path: 'sessions', component: SessionListComponent, canActivate: [AuthGuard], data: {roles: ['PARTICIPANT']}},
   { path: 'meet', component: JitsiMeetComponent, canActivate: [AuthGuard], data: {roles: ['PARTICIPANT']}},
   { path: 'unauthorized', component: UnauthorizedComponent},
-  { path: 'cv', component: DocumentComponent, canActivate: [AuthGuard], data: {roles: ['PARTICIPANT']}},
-
+  { path: 'submit-cv/:id', component: DocumentComponent, canActivate: [AuthGuard], data: {roles: ['PARTICIPANT']}},
 
   { 
     path: 'admin', component: AllTemplateBackComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN', 'ORGANIZER']},
@@ -36,6 +36,7 @@ const routes: Routes = [
       { path: 'list', component: SessionListComponent, canActivate: [AuthGuard], data: {roles: ['ORGANIZER', 'ADMIN']} },
       { path: 'submissions', component: SubmissionsComponent, canActivate: [AuthGuard], data: {roles: ['ORGANIZER', 'ADMIN']}},
       { path: 'listUsers', component: ListUtilisateurComponent, canActivate: [AuthGuard], data: {roles: ['ADMIN']}},
+      {path: 'session-statistics', component: SessionStatisticsComponent,canActivate: [AuthGuard], data: {roles: ['ORGANIZER', 'ADMIN']} }
     ]
   },
 

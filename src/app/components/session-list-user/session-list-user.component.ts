@@ -192,5 +192,23 @@ export class SessionListUserComponent implements OnInit, OnDestroy {
   toggleChatbot() {
     this.chatbotVisible = !this.chatbotVisible;
   }
+  dateFilteredSessions: Session[] = [];
+  selectedDate: string = '';
+
+  filterByDate(date: string): void {
+    this.selectedDate = date;
+    if (date) {
+      this.dateFilteredSessions = this.filteredSessions.filter(session => 
+        new Date(session.date).toDateString() === new Date(date).toDateString()
+      );
+    } else {
+      this.dateFilteredSessions = [...this.filteredSessions];
+    }
+  }
+
+  clearDateFilter(): void {
+    this.selectedDate = '';
+    this.dateFilteredSessions = [];
+  }
     
 }

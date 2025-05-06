@@ -85,4 +85,13 @@ export class SubmissionService {
     getDocumentUrl(filePath: string): string {
       return `${this.apiUrl}/document?filePath=${encodeURIComponent(filePath)}`;
     }
+    deleteSubmission(id: number): Observable<void> {
+      return this.http.delete<void>(`${this.apiUrl}/submissions/${id}`);
+    }
+    // submission.service.ts
+
+getSessionStatistics(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/session-statistics`);
 }
+}
+

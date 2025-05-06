@@ -244,4 +244,18 @@ public pieChartOptions: ChartConfiguration['options'] = {
       window.URL.revokeObjectURL(url);
     });
   }
+  onDeleteSubmission(id: number): void {
+    if (confirm("Voulez-vous vraiment supprimer cette soumission ?")) {
+      this.submissionService.deleteSubmission(id).subscribe({
+        next: () => {
+          this.submissions = this.submissions.filter(s => s.id !== id);
+        },
+        error: err => {
+          console.error('Erreur lors de la suppression :', err);
+        }
+      });
+    }
+  }
+  
+  
 }

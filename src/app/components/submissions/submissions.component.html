@@ -113,15 +113,21 @@
                 <td>{{ (submission.session && submission.session.nom) ? submission.session.nom : 'Session non disponible' }}</td>
                 <td>{{ submission.status }}</td>
                 <td class="action-buttons">
-                    <button (click)="updateStatus(submission.id!, submissionStatus.ACCEPTED)" 
-                            matTooltip="Accepter" matTooltipPosition="above">
+                    <div class="action-buttons-inner">
+                      <button (click)="updateStatus(submission.id!, submissionStatus.ACCEPTED)" 
+                              matTooltip="Accepter" matTooltipPosition="above">
                         <i class="fas fa-check-circle success-icon"></i>
-                    </button>
-                    <button (click)="updateStatus(submission.id!, submissionStatus.REJECTED)" 
-                            matTooltip="Rejeter" matTooltipPosition="above">
+                      </button>
+                      <button (click)="updateStatus(submission.id!, submissionStatus.REJECTED)" 
+                              matTooltip="Rejeter" matTooltipPosition="above">
                         <i class="fas fa-times-circle danger-icon"></i>
-                    </button>
-                </td>
+                      </button>
+                      <button (click)="onDeleteSubmission(submission.id!)" 
+                              matTooltip="Supprimer" matTooltipPosition="above">
+                        <i class="fas fa-trash-alt delete-icon"></i>
+                      </button>
+                    </div>
+                  </td>                  
             </tr>
         </tbody>
     </table>

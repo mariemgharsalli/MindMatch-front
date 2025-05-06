@@ -27,6 +27,8 @@ import { SubmissionsComponent } from './components/submissions/submissions.compo
 import { ListUtilisateurComponent } from './components/list-utilisateur/list-utilisateur.component';
 import { DocumentComponent } from './components/document/document.component';
 import { NgChartsModule } from 'ng2-charts';
+import { SessionStatisticsComponent } from './components/session-statistics/session-statistics.component';
+import { SessionCalendarComponent } from './components/session-calendar/session-calendar.component';
 
 
 export function jwtOptionsFactory() {
@@ -60,7 +62,9 @@ export function jwtOptionsFactory() {
     UnauthorizedComponent,
     SubmissionsComponent,
     ListUtilisateurComponent,
-    DocumentComponent
+    DocumentComponent,
+    SessionStatisticsComponent,
+    SessionCalendarComponent
   ],
   imports: [
     BrowserModule,

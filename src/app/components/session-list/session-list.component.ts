@@ -318,23 +318,38 @@ export class SessionListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   addSession(): void {
     if (this.sessionForm.valid) {
-      const sessionData = this.sessionForm.value;
-      
-      const operation = this.currentSessionId
-        ? this.sessionService.updateSession(this.currentSessionId, sessionData)
-        : this.sessionService.addSession(sessionData);
+        const sessionData = this.sessionForm.value;
+        
+        // Make sure we're using the correct ID
+        const operation = this.currentSessionId
+            ? this.sessionService.updateSession(this.currentSessionId, sessionData)
+            : this.sessionService.addSession(sessionData);
 
-      operation.subscribe({
-        next: (res) => {
-          if (this.selectedProfileFile && res.id) {
-            this.saveImage(res.id);
-          }
-          this.handleAfterSave();
-        },
-        error: (err) => console.error('Error saving session', err)
-      });
+        operation.subscribe({
+            next: (res) => {
+                if (this.selectedProfileFile && res.id) {
+                    this.saveImage(res.id);
+                }
+                this.handleAfterSave();
+                
+                // Show success notification
+                this.notificationMessage = this.currentSessionId 
+                    ? 'Session updated successfully' 
+                    : 'Session created successfully';
+                this.notificationType = 'success';
+                this.showNotification = true;
+                setTimeout(() => this.hideNotification(), 3000);
+            },
+            error: (err) => {
+                console.error('Error saving session', err);
+                this.notificationMessage = 'Error saving session';
+                this.notificationType = 'error';
+                this.showNotification = true;
+                setTimeout(() => this.hideNotification(), 5000);
+            }
+        });
     }
-  }
+}
 
   saveImage(sessionId: number): void {
     if (this.selectedProfileFile) {

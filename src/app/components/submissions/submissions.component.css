@@ -453,19 +453,23 @@ h2, h3 {
   background: transparent;
 }
 
+
+
 .success-icon {
-  color: #4CAF50;
-  font-size: 20px;
+  color: green;
+  font-size: 18px;
 }
 
 .danger-icon {
-  color: #F44336;
-  font-size: 20px;
+  color: red;
+  font-size: 18px;
 }
 
-.action-buttons button:hover {
-  transform: scale(1.2);
+.delete-icon {
+  color: #b30000;
+  font-size: 18px;
 }
+
 
 /* Status colors */
 .accepted {

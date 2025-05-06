@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { SessionService } from 'src/app/services/session.service';
 import { SubmissionService } from 'src/app/services/submission.service';
@@ -12,75 +12,57 @@ import Swal from 'sweetalert2';
 })
 export class DocumentComponent {
   diplomaFilesSelected: File[] = [];
-  fileName: string = '';
   currentSessionId: number | null = null;
-  availableSessions: any[] = []; // Pour stocker les sessions disponibles
-
+  currentSessionName: string = '';
 
   constructor(
-    private authService: AuthService, 
-    private router: Router, 
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute,
     private submissionService: SubmissionService,
     private sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
-    this.loadAvailableSessions();
-  }
-
-  loadAvailableSessions(): void {
-    this.sessionService.getAllFormationsNonArchivees().subscribe({
-      next: (sessions) => {
-        this.availableSessions = sessions;
-        if (this.availableSessions.length > 0) {
-          this.currentSessionId = this.availableSessions[0].id;
-        }
-      },
-      error: (error) => {
-        console.error('Erreur lors du chargement des sessions:', error);
-        Swal.fire({
-          title: 'Erreur',
-          text: 'Impossible de charger les sessions disponibles',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
+    this.route.params.subscribe(params => {
+      this.currentSessionId = +params['id'];
+      if (this.currentSessionId) {
+        this.loadSessionDetails(this.currentSessionId);
       }
     });
   }
 
-  onFileSelected(event: any, type: string): void {
+  loadSessionDetails(sessionId: number): void {
+    this.sessionService.getSessionById(sessionId).subscribe({
+      next: (session) => {
+        this.currentSessionName = session.nom;
+        console.log('Session chargée:', session.nom); // Debug
+      },
+      error: (error) => {
+        console.error('Erreur chargement session:', error);
+        Swal.fire('Erreur', 'Impossible de charger les détails de la session', 'error');
+      }
+    });
+  }
+
+  onFileSelected(event: any): void {
     const files: FileList = event.target.files;
-    const fileArray: File[] = [];
+    this.diplomaFilesSelected = [];
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       if (this.isValidFileType(file)) {
-        fileArray.push(file);
+        this.diplomaFilesSelected.push(file);
       } else {
         Swal.fire({
           title: 'Format invalide',
-          text: 'Veuillez sélectionner uniquement des fichiers PDF ou des images (JPG, PNG, JPEG, etc.).',
-          icon: 'warning',
-          confirmButtonText: 'Compris',
-          confirmButtonColor: '#6c63ff',
-          background: '#fff8f0',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-          }
+          text: 'Veuillez sélectionner uniquement des fichiers PDF ou images (JPG, PNG, JPEG, etc.)',
+          icon: 'warning'
         });
         event.target.value = '';
         return;
       }
     }
-
-    if (type === 'diploma') {
-      this.diplomaFilesSelected = [...this.diplomaFilesSelected, ...fileArray];
-    } 
-
-    event.target.value = '';
   }
 
   isValidFileType(file: File): boolean {
@@ -98,85 +80,58 @@ export class DocumentComponent {
   }
 
   submitDocuments(): void {
+    // Vérifications
     const userId = this.authService.getUserId();
-    
     if (!userId) {
-      Swal.fire({
-        title: 'Erreur',
-        text: 'Vous devez être connecté pour soumettre des documents.',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
+      Swal.fire('Erreur', 'Vous devez être connecté', 'error');
       return;
     }
 
     if (!this.currentSessionId) {
-      Swal.fire({
-        title: 'Session non sélectionnée',
-        text: 'Veuillez sélectionner une session avant de soumettre.',
-        icon: 'warning',
-        confirmButtonText: 'OK'
-      });
-      return;
-    }
-
-    // Vérification supplémentaire que la session existe dans la liste
-    const selectedSession = this.availableSessions.find(s => s.id === this.currentSessionId);
-    if (!selectedSession) {
-      Swal.fire({
-        title: 'Session invalide',
-        text: 'La session sélectionnée n\'existe pas.',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
+      Swal.fire('Erreur', 'Aucune session sélectionnée', 'error');
       return;
     }
 
     if (this.diplomaFilesSelected.length === 0) {
-      Swal.fire({
-        title: 'Aucun fichier sélectionné',
-        text: 'Veuillez sélectionner au moins un fichier à soumettre.',
-        icon: 'warning',
-        confirmButtonText: 'OK'
-      });
+      Swal.fire('Erreur', 'Veuillez sélectionner un fichier', 'warning');
       return;
     }
 
     const fileToUpload = this.diplomaFilesSelected[0];
     
-    console.log('Tentative de soumission avec:', {
-      userId: userId,
+    // Debug
+    console.log('Envoi à la session:', {
       sessionId: this.currentSessionId,
-      fileName: fileToUpload.name,
-      sessionExists: !!selectedSession
+      sessionName: this.currentSessionName,
+      fileName: fileToUpload.name
     });
 
-    this.submissionService.createSubmissionWithDocument(userId, this.currentSessionId, fileToUpload)
-      .subscribe({
-        next: (response) => {
-          Swal.fire({
-            title: 'Succès!',
-            text: 'Votre CV a été soumis avec succès à la session: ' + selectedSession.nom,
-            icon: 'success',
-            confirmButtonText: 'OK'
-          }).then(() => {
-            this.closePopupAndNavigate();
-          });
-        },
-        error: (error) => {
-          console.error('Erreur complète:', error);
-          Swal.fire({
-            title: 'Erreur',
-            text: 'Échec de la soumission: ' + 
-                  (error.error?.message || error.message || 'Erreur inconnue'),
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-        }
-      });
+    this.submissionService.createSubmissionWithDocument(
+      userId, 
+      this.currentSessionId, 
+      fileToUpload
+    ).subscribe({
+      next: (response) => {
+        Swal.fire({
+          title: 'Succès!',
+          text: `CV soumis à la session: ${this.currentSessionName}`,
+          icon: 'success'
+        }).then(() => {
+          this.router.navigate(['/sessionUser']);
+        });
+      },
+      error: (error) => {
+        console.error('Erreur soumission:', error);
+        Swal.fire({
+          title: 'Erreur',
+          text: error.error?.message || 'Échec de la soumission',
+          icon: 'error'
+        });
+      }
+    });
   }
 
   closePopupAndNavigate() {
-    this.router.navigate(['/sessionUser']); 
+    this.router.navigate(['/sessionUser']);
   }
 }
